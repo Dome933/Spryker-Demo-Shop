@@ -86,6 +86,7 @@
     {% include molecule('order-detail-header', 'CustomerPage') with {
         data: {
             orderReference: data.order.orderReference,
+            orderName: data.order.orderName,
             createdAt: data.order.createdAt,
         },
     } only %}

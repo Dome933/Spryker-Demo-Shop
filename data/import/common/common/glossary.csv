@@ -589,6 +589,8 @@ customer.forgotten-password.title,Recover my password,en_US
 customer.forgotten-password.title,Passwort vergessen,de_DE
 customer.order.order_id,Order ID,en_US
 customer.order.order_id,Bestellnummer,de_DE
+customer.order.name,Order name,en_US
+customer.order.name,Bestellname,de_DE
 customer.order.view_all,View All,en_US
 customer.order.view_all,Alle anzeigen,de_DE
 customer.order.all_orders,View orders,en_US
