@@ -27,7 +27,12 @@ class CheckoutController extends SprykerCheckoutController
             return $this->redirectResponseInternal(static::ROUTE_CART);
         }
 
-        $response = $this->createStepProcess()->process($request);
+        $response = $this->createStepProcess()->process(
+            $request,
+            $this->getFactory()
+                ->createCheckoutFormFactory()
+                ->createOrderDetailsFormCollection(),
+        );
 
         if (!is_array($response)) {
             return $response;

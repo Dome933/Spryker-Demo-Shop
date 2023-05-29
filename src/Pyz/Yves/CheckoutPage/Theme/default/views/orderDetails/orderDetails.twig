@@ -1,5 +1,34 @@
 {% extends template('page-layout-checkout', 'CheckoutPage') %}
 
+{% define data = {
+    forms: {
+        orderDetails: _view.orderDetailsForm,
+    },
+} %}
+
 {% block content %}
-    demo content
+    <div class="grid">
+        <h3 class="col col--sm-12 title title--secondary-box spacing-bottom spacing-bottom--reset spacing-top spacing-top-bigger">
+            {{ 'checkout.step.order_details.title' | trans }}
+        </h3>
+        <div class="col col--sm-12">
+            {% embed molecule('form') with {
+                modifiers: ['checkout-actions', 'checkout-form-elements'],
+                data: {
+                    form: data.forms.orderDetails,
+                    submit: {
+                        enable: true,
+                        text: 'general.next.button' | trans,
+                        class: 'button  button--large button--expand'
+                    },
+                },
+            } only %}
+                {% block fields %}
+                        <div class="col col--sm-12 spacing-bottom spacing-bottom--small">
+                            {{ form_row(data.form) }}
+                        </div>
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
 {% endblock %}
