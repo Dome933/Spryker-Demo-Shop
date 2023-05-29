@@ -77,7 +77,7 @@ class OrderDetailsStep extends AbstractBaseStep implements StepWithBreadcrumbInt
      */
     public function isBreadcrumbItemEnabled(AbstractTransfer $quoteTransfer): bool
     {
-        return true;
+        return $this->postCondition($quoteTransfer);
     }
 
     /**

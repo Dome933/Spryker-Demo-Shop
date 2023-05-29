@@ -18,6 +18,25 @@ class PostConditionChecker implements PostConditionCheckerInterface
      */
     public function check(QuoteTransfer $quoteTransfer): bool
     {
+        return $quoteTransfer->getBillingAddress() !== null
+            && $this->haveItemsShipmentTransfers($quoteTransfer)
+            && $quoteTransfer->getPayment() !== null
+            && $quoteTransfer->getPayment()->getPaymentProvider() !== null;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return bool
+     */
+    protected function haveItemsShipmentTransfers(QuoteTransfer $quoteTransfer): bool
+    {
+        foreach ($quoteTransfer->getItems() as $itemTransfer) {
+            if ($itemTransfer->getShipment() === null) {
+                return false;
+            }
+        }
+
         return true;
     }
 }

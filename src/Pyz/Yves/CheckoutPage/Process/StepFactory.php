@@ -6,7 +6,9 @@ use Pyz\Yves\CheckoutPage\Process\Steps\OrderDetails\OrderDetailsStepExecutor;
 use Pyz\Yves\CheckoutPage\Process\Steps\OrderDetails\PostConditionChecker;
 use Pyz\Yves\CheckoutPage\Process\Steps\OrderDetailsStep;
 use Pyz\Yves\CheckoutPage\Plugin\Router\CheckoutPageRouteProviderPlugin;
+use SprykerShop\Yves\CheckoutPage\Plugin\Router\CheckoutPageRouteProviderPlugin as CheckoutPageRouteProviderPluginAlias;
 use SprykerShop\Yves\CheckoutPage\Process\StepFactory as SprykerStepFactory;
+use Pyz\Yves\CheckoutPage\Process\Steps\SummaryStep;
 
 /**
  * @method \Pyz\Yves\CheckoutPage\CheckoutPageConfig getConfig()
@@ -22,10 +24,10 @@ class StepFactory extends SprykerStepFactory
         return [
             $this->createEntryStep(),
             $this->createCustomerStep(),
-            $this->createOrderDetailsStep(),
             $this->createAddressStep(),
             $this->createShipmentStep(),
             $this->createPaymentStep(),
+            $this->createOrderDetailsStep(),
             $this->createSummaryStep(),
             $this->createPlaceOrderStep(),
             $this->createSuccessStep(),
@@ -40,6 +42,21 @@ class StepFactory extends SprykerStepFactory
             $this->createOrderDetailsPostConditionChecker(),
             CheckoutPageRouteProviderPlugin::ROUTE_NAME_CHECKOUT_ORDER_DETAILS,
             $this->getConfig()->getEscapeRoute(),
+        );
+    }
+
+    /**
+     * @return SummaryStep
+     */
+    public function createSummaryStep(): SummaryStep
+    {
+        return new SummaryStep(
+            $this->getProductBundleClient(),
+            $this->getShipmentService(),
+            $this->getConfig(),
+            CheckoutPageRouteProviderPluginAlias::ROUTE_NAME_CHECKOUT_SUMMARY,
+            $this->getConfig()->getEscapeRoute(),
+            $this->getCheckoutClient(),
         );
     }
 
